@@ -1,13 +1,16 @@
 import tkinter as tk
-from controllers import GestorImportarVinoDeBodega
-from models import Bodega, Vino, Maridaje, TipoUva
-from models import Probando
-from views import PantallaImportar
-from views import PantallaNotificacion
+from controllers.GestorImportarVinoDeBodega import GestorImportarVinoDeBodega
+from models.Bodega import Bodega
+from models.Maridaje import Maridaje
+from models.TipoUva import TipoUva
+from models.Varietal import Varietal
+from models.Probando import Probando
+from views.PantallaImportar import PantallaImportar
+
 
 def crear_lista_bodegas():
     # Aquí llamarías a la función que carga las bodegas, similar a Probando.CargarDatosIniciales()
-    return 
+    return Probando.cargar_datos_iniciales()
 
 def crear_lista_vinos():
     # Aquí crearías la lista de vinos, similar a Probando.crear_lista_vinos()
@@ -32,7 +35,7 @@ def main():
 
     # Crear la ventana principal (en este caso, la PantallaImportar) en Tkinter
     root = tk.Tk()
-    pantalla_importar = PantallaImportar(root, gestor_importar_vino_de_bodega)
+    pantalla_importar = PantallaImportar(gestor_importar_vino_de_bodega)
 
     # Iniciar la interfaz gráfica
     root.mainloop()

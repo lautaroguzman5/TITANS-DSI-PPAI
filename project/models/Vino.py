@@ -14,7 +14,6 @@ class Vino:
                  maridajes: Optional[List] = None, 
                  varietal=None, 
                  imagen_etiqueta: int = 0):
-        self.id = None  # Similar a [Key] en C#, lo manejarías con un ORM si usas uno como SQLAlchemy.
         self.aniada = aniade
         self.nombre = nombre
         self.nota_de_cata = nota_de_cata
@@ -22,9 +21,9 @@ class Vino:
         self.imagen_etiqueta = imagen_etiqueta
         self.maridajes = maridajes if maridajes else []
         self.varietal = varietal
-        self.varietal_id = varietal.id if varietal else 0
+ 
         self.bodega = bodega
-        self.bodega_id = bodega.id if bodega else 0
+
 
     # Métodos setter y getter
     def set_aniade(self, aniade: int):

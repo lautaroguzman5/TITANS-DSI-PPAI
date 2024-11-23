@@ -1,49 +1,11 @@
 from datetime import datetime
 from typing import List
 
-class Bodega:
-    def __init__(self, nombre: str, id_bodega: int, descripcion: str, historia: str, coordenadas: List[float], fecha_fundacion: datetime):
-        self.nombre = nombre
-        self.id_bodega = id_bodega
-        self.descripcion = descripcion
-        self.historia = historia
-        self.coordenadas = coordenadas
-        self.fecha_fundacion = fecha_fundacion
-
-    def get_nombre(self):
-        return self.nombre
-
-
-class TipoUva:
-    def __init__(self, nombre: str, descripcion: str):
-        self.nombre = nombre
-        self.descripcion = descripcion
-
-
-class Varietal:
-    def __init__(self, nombre: str, cantidad: float, tipo_uva: TipoUva):
-        self.nombre = nombre
-        self.cantidad = cantidad
-        self.tipo_uva = tipo_uva
-
-
-class Maridaje:
-    def __init__(self, tipo: str, descripcion: str):
-        self.tipo = tipo
-        self.descripcion = descripcion
-
-
-class Vino:
-    def __init__(self, bodega: Bodega, anio: int, nombre: str, nota_cata: str, stock: int, maridajes: List[Maridaje], varietales: List[Varietal], cantidad: int):
-        self.bodega = bodega
-        self.anio = anio
-        self.nombre = nombre
-        self.nota_cata = nota_cata
-        self.stock = stock
-        self.maridajes = maridajes
-        self.varietales = varietales
-        self.cantidad = cantidad
-
+from models.Bodega import Bodega
+from models.Maridaje import Maridaje
+from models.TipoUva import TipoUva
+from models.Varietal import Varietal
+from models.Vino import Vino
 
 class Probando:
     @staticmethod

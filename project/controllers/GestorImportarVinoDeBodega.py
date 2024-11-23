@@ -1,7 +1,13 @@
 from datetime import datetime, timedelta
 from typing import List
-
-from models import Bodega, Enofilo, Maridaje, Siguiendo, TipoUva, Usuario, Varietal, Vino
+from models.Usuario import Usuario
+from models.Siguiendo import Siguiendo
+from models.Bodega import Bodega
+from models.Maridaje import Maridaje
+from models.TipoUva import TipoUva
+from models.Varietal import Varietal
+from models.Vino import Vino
+from models.Enofilo import Enofilo
 from views import PantallaNotificacion
 
 class GestorImportarVinoDeBodega:
