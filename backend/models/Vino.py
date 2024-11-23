@@ -1,6 +1,8 @@
 from typing import List, Optional
 from datetime import datetime
 
+from backend.models import Varietal
+
 
 class Vino:
     def __init__(self, 
