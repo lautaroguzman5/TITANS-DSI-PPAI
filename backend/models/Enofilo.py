@@ -1,4 +1,4 @@
-from backend.models import Siguiendo
+from models import Siguiendo
 
 
 class Enofilo:

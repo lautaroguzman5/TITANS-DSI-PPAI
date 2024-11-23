@@ -1,82 +1,117 @@
 from datetime import datetime
+from typing import List
 
-from backend.models import Bodega, Maridaje, TipoUva, Varietal, Vino
+class Bodega:
+    def __init__(self, nombre: str, id_bodega: int, descripcion: str, historia: str, coordenadas: List[float], fecha_fundacion: datetime):
+        self.nombre = nombre
+        self.id_bodega = id_bodega
+        self.descripcion = descripcion
+        self.historia = historia
+        self.coordenadas = coordenadas
+        self.fecha_fundacion = fecha_fundacion
+
+    def get_nombre(self):
+        return self.nombre
+
+
+class TipoUva:
+    def __init__(self, nombre: str, descripcion: str):
+        self.nombre = nombre
+        self.descripcion = descripcion
+
+
+class Varietal:
+    def __init__(self, nombre: str, cantidad: float, tipo_uva: TipoUva):
+        self.nombre = nombre
+        self.cantidad = cantidad
+        self.tipo_uva = tipo_uva
+
+
+class Maridaje:
+    def __init__(self, tipo: str, descripcion: str):
+        self.tipo = tipo
+        self.descripcion = descripcion
+
+
+class Vino:
+    def __init__(self, bodega: Bodega, anio: int, nombre: str, nota_cata: str, stock: int, maridajes: List[Maridaje], varietales: List[Varietal], cantidad: int):
+        self.bodega = bodega
+        self.anio = anio
+        self.nombre = nombre
+        self.nota_cata = nota_cata
+        self.stock = stock
+        self.maridajes = maridajes
+        self.varietales = varietales
+        self.cantidad = cantidad
+
 
 class Probando:
-    def __init__(self):
-        """
-        Constructor de la clase Probando. Carga los datos iniciales al instanciar la clase.
-        """
-        self.context = None  # Reemplaza con tu ORM si es necesario
-        self.bodegas = self.cargar_datos_iniciales()
+    @staticmethod
+    def cargar_datos_iniciales():
+        bodegas = []
 
-    def cargar_datos_iniciales(self):
-        """
-        Carga datos iniciales de bodegas, varietales, y tipos de uva.
-        Retorna una lista de bodegas.
-        """
-        # Simulación de contexto (reemplazar con ORM en proyectos reales)
-        tipos_uva = self.crear_lista_tipo_uva()
-        varietal = Varietal("descripcion", 12, tipos_uva[2])
-
-        # Crear la lista de bodegas
-        bodegas = [
-            Bodega("Bodega Cordoba", 1, "Descripcion Bodega Cordoba", "Historia Fernando",
-                   [40.7128, -74.0060], datetime.now().replace(microsecond=0)),
-            Bodega("Bodega BSAS", 2, "Descripcion Bodega BSAS", "Historia Fernando",
-                   [40.7128, -74.0060], datetime.now().replace(microsecond=0)),
-            Bodega("Bodega Mendoza", 4, "Descripcion Bodega Mendoza", "Historia Fernando",
-                   [40.7128, -74.0060], datetime.now().replace(microsecond=0)),
-            Bodega("Bodega SanJuan", 1, "Descripcion Bodega SanJuan", "Historia Fernando",
-                   [40.7128, -74.0060], datetime.now().replace(microsecond=0))
-        ]
+        bodegas.append(Bodega("Bodega Cordoba", 1, "Descripcion Bodega Cordoba", "Historia Fernando", [40.7128, -74.0060], datetime.now().replace(month=datetime.now().month-1)))
+        bodegas.append(Bodega("Bodega BSAS", 2, "Descripcion Bodega BSAS", "Historia Fernando", [40.7128, -74.0060], datetime.now().replace(month=datetime.now().month-2)))
+        bodegas.append(Bodega("Bodega Mendoza", 4, "Descripcion Bodega Mendoza", "Historia Fernando", [40.7128, -74.0060], datetime.now().replace(month=datetime.now().month-3)))
+        bodegas.append(Bodega("Bodega SanJuan", 1, "Descripcion Bodega SanJuan", "Historia Fernando", [40.7128, -74.0060], datetime.now().replace(month=datetime.now().month-2)))
 
         return bodegas
 
-    def crear_lista_vinos(self):
-        """
-        Crea una lista de vinos para cada bodega inicial.
-        Retorna una lista de vinos.
-        """
+    @staticmethod
+    def crear_lista_vinos():
         vinos = []
-        maridajes = self.crear_lista_maridaje()
-        tipos_uva = self.crear_lista_tipo_uva()
 
-        # Crear varietales
-        varietal1 = Varietal("Varietal 1", 50.0, tipos_uva[0])
-        varietal2 = Varietal("Varietal 2", 30.0, tipos_uva[1])
-        varietal3 = Varietal("Varietal 3", 20.0, tipos_uva[2])
+        maridajes_vino1 = [Probando.crear_lista_maridaje()[0], Probando.crear_lista_maridaje()[3], Probando.crear_lista_maridaje()[2]]
+        maridajes_vino3 = [Probando.crear_lista_maridaje()[2], Probando.crear_lista_maridaje()[3]]
+        maridajes_vino2 = [Probando.crear_lista_maridaje()[1], Probando.crear_lista_maridaje()[0], Probando.crear_lista_maridaje()[4]]
 
-        for bodega in self.bodegas:
-            vinos.append(Vino(bodega, 2018, f"Vino 1 {bodega.nombre}", "Nota De Cata", 300,
-                              [maridajes[0], maridajes[1], maridajes[2]], varietal1, 700))
-            vinos.append(Vino(bodega, 2018, f"Vino 2 {bodega.nombre}", "Nota De Cata", 300,
-                              [maridajes[1], maridajes[2], maridajes[3]], varietal2, 700))
-            vinos.append(Vino(bodega, 2018, f"Vino 3 {bodega.nombre}", "Nota De Cata", 300,
-                              [maridajes[2], maridajes[3]], varietal3, 700))
+        varietales1 = [Probando.crear_lista_varietal()[2], Probando.crear_lista_varietal()[7]]
+        varietales2 = [Probando.crear_lista_varietal()[1], Probando.crear_lista_varietal()[6]]
+        varietales3 = [Probando.crear_lista_varietal()[0], Probando.crear_lista_varietal()[5]]
+
+        for bodega in Probando.cargar_datos_iniciales():
+            vinos.append(Vino(bodega, 2018, f"Vino 1 {bodega.get_nombre()}", "Nota De Cata", 300, maridajes_vino2, varietales1, 700))
+            vinos.append(Vino(bodega, 2018, f"Vino 2 {bodega.get_nombre()}", "Nota De Cata", 300, maridajes_vino2, varietales1, 700))
+            vinos.append(Vino(bodega, 2018, f"Vino 3 {bodega.get_nombre()}", "Nota De Cata", 300, maridajes_vino3, varietales2, 700))
+            vinos.append(Vino(bodega, 2018, f"Vino 4 {bodega.get_nombre()}", "Nota De Cata", 300, maridajes_vino1, varietales3, 700))
 
         return vinos
 
-    def crear_lista_tipo_uva(self):
-        """
-        Crea una lista de tipos de uva.
-        Retorna una lista de objetos TipoUva.
-        """
-        return [
-            TipoUva("Cabernet Sauvignon", "Uva con alta concentración de taninos"),
-            TipoUva("Merlot", "Uva con cuerpo medio y sabores afrutados"),
-            TipoUva("Malbec", "Uva con cuerpo completo y sabores especiados")
-        ]
+    @staticmethod
+    def crear_lista_tipo_uva():
+        tipos_uva = []
 
-    def crear_lista_maridaje(self):
-        """
-        Crea una lista de maridajes.
-        Retorna una lista de objetos Maridaje.
-        """
-        return [
-            Maridaje("Asado", "Unas buenas carnes asadas"),
-            Maridaje("Picada", "Embutidos"),
-            Maridaje("Morcilla", "Morcilla fría"),
-            Maridaje("Empanada", "Frita no árabe"),
-            Maridaje("Postres", "Postres de chocolate y frutos rojos")
-        ]
+        tipos_uva.append(TipoUva("Cabernet Sauvignon", "Uva con alta concentración de taninos"))
+        tipos_uva.append(TipoUva("Merlot", "Uva con cuerpo medio y sabores afrutados"))
+        tipos_uva.append(TipoUva("Malbec", "Uva con cuerpo completo y sabores especiados"))
+
+        return tipos_uva
+
+    @staticmethod
+    def crear_lista_varietal():
+        varietales = []
+
+        varietales.append(Varietal("Varietal 1", 50.0, Probando.crear_lista_tipo_uva()[0]))
+        varietales.append(Varietal("Varietal 2", 30.0, Probando.crear_lista_tipo_uva()[1]))
+        varietales.append(Varietal("Varietal 3", 20.0, Probando.crear_lista_tipo_uva()[2]))
+        varietales.append(Varietal("Varietal 4", 70.0, Probando.crear_lista_tipo_uva()[0]))
+        varietales.append(Varietal("Varietal 5", 60.0, Probando.crear_lista_tipo_uva()[1]))
+        varietales.append(Varietal("Varietal 1", 50.0, Probando.crear_lista_tipo_uva()[1]))
+        varietales.append(Varietal("Varietal 2", 70.0, Probando.crear_lista_tipo_uva()[2]))
+        varietales.append(Varietal("Varietal 3", 80.0, Probando.crear_lista_tipo_uva()[1]))
+        varietales.append(Varietal("Varietal 4", 30.0, Probando.crear_lista_tipo_uva()[2]))
+        varietales.append(Varietal("Varietal 5", 30.0, Probando.crear_lista_tipo_uva()[2]))
+
+        return varietales
+
+    @staticmethod
+    def crear_lista_maridaje():
+        maridajes = []
+
+        maridajes.append(Maridaje("asado", "Unas buenas carnes asadas"))
+        maridajes.append(Maridaje("picada", "embutidos"))
+        maridajes.append(Maridaje("morcilla", "morcilla fria"))
+        maridajes.append(Maridaje("empanada", "frita no arabe"))
+        maridajes.append(Maridaje("Maridaje 5", "Postres de chocolate y frutos rojos"))
+
+        return maridajes
