@@ -7,38 +7,22 @@ from models.Varietal import Varietal
 from models.Probando import Probando
 from views.PantallaImportar import PantallaImportar
 
-
-def crear_lista_bodegas():
-    # Aquí llamarías a la función que carga las bodegas, similar a Probando.CargarDatosIniciales()
-    return Probando.cargar_datos_iniciales()
-
-def crear_lista_vinos():
-    # Aquí crearías la lista de vinos, similar a Probando.crear_lista_vinos()
-    return Probando.crear_lista_vinos()
-
-def crear_lista_maridajes():
-    # Crear la lista de maridajes, similar a Probando.crear_lista_maridaje()
-    return Probando.crear_lista_maridaje()
-
-def crear_lista_tipo_uva():
-    # Crear la lista de tipos de uva, similar a Probando.crear_lista_tipo_uva()
-    return Probando.crear_lista_tipo_uva()
-
 def main():
-    bodegas = crear_lista_bodegas()
-    vinos = crear_lista_vinos()
-    maridajes = crear_lista_maridajes()
-    tipos_uva = crear_lista_tipo_uva()
+    bodegas = Probando.cargar_datos_iniciales()
+    vinos = Probando.crear_lista_vinos()
+    maridajes = Probando.crear_lista_maridaje()
+    tipos_uva = Probando.crear_lista_tipo_uva()
 
     # Instanciamos el gestor con las listas creadas
     gestor_importar_vino_de_bodega = GestorImportarVinoDeBodega(bodegas, vinos, maridajes, tipos_uva)
 
     # Crear la ventana principal (en este caso, la PantallaImportar) en Tkinter
-    root = tk.Tk()
-    pantalla_importar = PantallaImportar(gestor_importar_vino_de_bodega)
+    #root = tk.Tk()
+    app = PantallaImportar(gestor_importar_vino_de_bodega)
+    gestor_importar_vino_de_bodega.set_pantalla(app)
 
     # Iniciar la interfaz gráfica
-    root.mainloop()
+    pantalla_importar.mainloop()
 
 if __name__ == "__main__":
     main()
